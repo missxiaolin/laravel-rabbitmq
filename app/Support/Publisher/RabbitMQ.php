@@ -61,6 +61,9 @@ abstract class RabbitMQ
         $this->channel = $channel;
     }
 
+    /**
+     * @param array $data
+     */
     public function basicPublish(array $data)
     {
         $body = json_encode($data);

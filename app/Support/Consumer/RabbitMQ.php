@@ -73,21 +73,26 @@ abstract class RabbitMQ
         $this->channel->basic_consume($this->queue, $this->tag, false, false, false, false, function ($message) {
             try {
                 $data = json_decode($message->body, true);
+                dump($data);
                 // 日志
                 if ($this->logger) {
                     $log = [
                         'data' => $data,
                         'id' => request()->ip(),
                         'processing' => get_class(),
-                        'message' => $message->body,
                     ];
                     logger_instance($this->getSuccessName(), $log);
                 }
                 $this->handle($data);
                 $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
             } catch (\Exception $ex) {
-                $msg = $ex->getMessage() . ' code:' . $ex->getCode() . ' in ' . $ex->getFile() . ' line ' . $ex->getLine() . PHP_EOL . $ex->getTraceAsString();
-                dd($msg);
+                $log = [
+                    'msg' => $ex->getMessage(),
+                    'code' => $ex->getCode(),
+                    'file' => $ex->getFile(),
+                    'line' => $ex->getLine(),
+                ];
+                logger_instance($this->getFailName(), $log);
             }
         });
 
@@ -104,9 +109,20 @@ abstract class RabbitMQ
         $this->channel->close();
     }
 
+    /**
+     * @return string
+     */
     public function getSuccessName()
     {
         return 'rabbit-mq-success';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFailName()
+    {
+        return 'rabbit-mq-fail';
     }
 
 }

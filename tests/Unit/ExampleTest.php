@@ -31,6 +31,7 @@ class ExampleTest extends TestCase
     {
         $publisher = Test::getInstance();
         $uniqid = uniqid();
+        Redis::del('rabbit:consumer:incr');
 
         $publisher->basicPublish([
             'success' => true,
@@ -45,5 +46,6 @@ class ExampleTest extends TestCase
         $this->assertEquals(true, Redis::get('rabbit:consumer:success'));
         $this->assertEquals('1.1', Redis::get('rabbit:consumer:version'));
         $this->assertEquals($uniqid, Redis::get('rabbit:consumer:uniqid'));
+        $this->assertEquals(2, Redis::get('rabbit:consumer:incr'));
     }
 }

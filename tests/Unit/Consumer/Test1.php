@@ -11,11 +11,11 @@ namespace Tests\Unit\Consumer;
 use App\Support\Consumer\RabbitMQ;
 use Illuminate\Support\Facades\Redis;
 
-class Test extends RabbitMQ
+class Test1 extends RabbitMQ
 {
     public $exchange = 'laravel-exchange';
 
-    public $queue = 'laravel-queue';
+    public $queue = 'laravel-queue2';
 
     public $tag = 'laravel-consumer';
 
