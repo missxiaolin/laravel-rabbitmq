@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Support;
 
 trait InstanceTrait
@@ -7,18 +8,15 @@ trait InstanceTrait
 
     protected $instanceKey;
 
-    public static function getInstance($key = 'default')
+    public static function getInstance()
     {
-        if (!isset($key)) {
-            $key = 'default';
-        }
+        $key = get_class();
 
         if (isset(static::$_instances[$key]) && static::$_instances[$key] instanceof static) {
             return static::$_instances[$key];
         }
 
         $client = new static();
-        $client->instanceKey = $key;
         return static::$_instances[$key] = $client;
     }
 

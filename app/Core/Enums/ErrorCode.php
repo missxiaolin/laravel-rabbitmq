@@ -11,72 +11,32 @@ class ErrorCode extends Enum
     public static $ENUM_SYSTEM_ERROR = 400;
 
     /**
-     * @Message('CURL接口访问失败')
+     * @Message('RabbitMQ 配置有误')
      */
-    public static $ENUM_SYSTEM_CURL_ERROR = 401;
+    public static $ENUM_RABBIT_MQ_CONFIG_ERROR = 500;
 
     /**
-     * @Message('API 配置不存在')
+     * @Message('RabbitMQ 发布者queue必填')
      */
-    public static $ENUM_SYSTEM_API_CONFIG_NOT_EXIST = 402;
-
-    /*
-     * @Message('API请求参数非法')
-     */
-    public static $ENUM_SYSTEM_API_REQUEST_ILLEGAL = 403;
+    public static $ENUM_RABBIT_MQ_PUBLISHER_QUEUE_NOT_EXIST = 501;
 
     /**
-     * @Message('访问接口超时')
+     * @Message('RabbitMQ 发布者exchange必填')
      */
-    public static $ENUM_SYSTEM_TIMEOUT = 1000;
+    public static $ENUM_RABBIT_MQ_PUBLISHER_EXCHANGE_NOT_EXIST = 502;
 
     /**
-     * @Message('DB环境配置不存在')
+     * @Message('RabbitMQ 消费者queue必填')
      */
-    public static $ENUM_SYSTEM_DATABASE_CONFIG_NOT_EXIST = 1001;
+    public static $ENUM_RABBIT_MQ_CONSUMER_QUEUE_NOT_EXIST = 503;
 
     /**
-     * @Message('短信服务配置不存在')
+     * @Message('RabbitMQ 消费者exchange必填')
      */
-    public static $ENUM_SYSTEM_SMS_CONFIG_NOT_EXIST = 1002;
+    public static $ENUM_RABBIT_MQ_CONSUMER_EXCHANGE_NOT_EXIST = 504;
 
     /**
-     * @Message('短信服务初始化失败')
+     * @Message('RabbitMQ 消费者tag必填')
      */
-    public static $ENUM_SYSTEM_SMS_INIT_ERROR = 1003;
-
-    /**
-     * @Message('短信模板不存在')
-     */
-    public static $ENUM_SYSTEM_SMS_TEMPLATES_NOT_EXIST = 1004;
-
-    /**
-     * @Message('短信发送频率太高')
-     */
-    public static $ENUM_SYSTEM_SMS_SEND_FREQUENTLY = 1005;
-
-    /**
-     * @Message('短信验证码生成失败')
-     */
-    public static $ENUM_SYSTEM_SMS_CODE_CREATE_ERROR = 1006;
-
-    /**
-     * @Message('发送验证码失败')
-     */
-    public static $ENUM_SYSTEM_SMS_SEND_CODE_ERROR = 1007;
-
-    /**
-     * @Message('调用内部服务失败')
-     */
-    public static $ENUM_SYSTEM_SPRING_CLOUD_RESPONSE_FAILED = 1008;
-
-    /**
-     * @Message('调用内部服务超时')
-     */
-    public static $ENUM_SYSTEM_SPRING_CLOUD_REQUEST_TIMEOUT = 1009;
-
-    /**
-     * @Message('Eureka配置有误')
-     */
-    public static $ENUM_EUREKA_CONFIG_INVALID = 500;
+    public static $ENUM_RABBIT_MQ_CONSUMER_TAG_NOT_EXIST = 505;
 }
