@@ -28,6 +28,8 @@ abstract class RabbitMQ
 
     public $exchangeType = 'direct';
 
+    protected $logger;
+
     /**
      * RabbitMQ constructor.
      * @throws CodeException
@@ -71,6 +73,16 @@ abstract class RabbitMQ
         $this->channel->basic_consume($this->queue, $this->tag, false, false, false, false, function ($message) {
             try {
                 $data = json_decode($message->body, true);
+                // 日志
+                if ($this->logger) {
+                    $log = [
+                        'data' => $data,
+                        'id' => request()->ip(),
+                        'processing' => get_class(),
+                        'message' => $message->body,
+                    ];
+                    logger_instance($this->getSuccessName(), $log);
+                }
                 $this->handle($data);
                 $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
             } catch (\Exception $ex) {
@@ -90,6 +102,11 @@ abstract class RabbitMQ
     public function close()
     {
         $this->channel->close();
+    }
+
+    public function getSuccessName()
+    {
+        return 'rabbit-mq-success';
     }
 
 }

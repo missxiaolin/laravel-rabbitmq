@@ -19,6 +19,8 @@ class Test extends RabbitMQ
 
     public $tag = 'laravel-consumer';
 
+    public $logger = true;
+
     public function handle(array $data)
     {
         Redis::set('rabbit:consumer:success', $data['success']);
