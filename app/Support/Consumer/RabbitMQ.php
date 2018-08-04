@@ -26,7 +26,7 @@ abstract class RabbitMQ
 
     public $channel;
 
-    protected static $_instances = [];
+    public $exchangeType = 'direct';
 
     /**
      * RabbitMQ constructor.
@@ -60,7 +60,7 @@ abstract class RabbitMQ
 
         $channel->queue_declare($this->queue, false, true, false, false);
 
-        $channel->exchange_declare($this->exchange, 'direct', false, true, false);
+        $channel->exchange_declare($this->exchange, $this->exchangeType, false, true, false);
         $channel->queue_bind($this->queue, $this->exchange);
 
         $this->channel = $channel;
